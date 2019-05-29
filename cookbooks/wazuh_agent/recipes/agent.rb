@@ -79,7 +79,8 @@ if agent_auth['password']
   args << ' -P ' + agent_auth['password']
 end
 
-execute "#{dir}/bin/agent-auth #{args}" do
+execute 'run agent-auth' do
+  command "#{dir}/bin/agent-auth #{args}"
   timeout 30
   ignore_failure node['ossec']['ignore_failure']
   only_if { agent_auth['host'] && !File.size?("#{dir}/etc/client.keys") }
