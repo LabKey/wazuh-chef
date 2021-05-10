@@ -94,6 +94,16 @@ template "#{node['ossec']['dir']}/etc/local_internal_options.conf" do
   action :create
 end
 
+file 'set client.keys permissions' do
+  path "#{dir}/etc/client.keys"
+  mode  '0640'
+  owner 'ossec'
+  group 'ossec'
+  only_if {
+    ::File.exist?("#{dir}/etc/client.keys")
+  }
+end
+
 service 'wazuh' do
   service_name 'wazuh-agent'
   supports status: true, restart: true
