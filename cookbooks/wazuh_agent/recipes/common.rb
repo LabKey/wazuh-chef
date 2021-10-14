@@ -28,6 +28,7 @@ ruby_block 'ossec install_type' do
       end
     end
   end
+  only_if { ::File.exist?('/var/ossec/etc/ossec-init.conf')}
 end
 
 # Gyoku renders the XML.
