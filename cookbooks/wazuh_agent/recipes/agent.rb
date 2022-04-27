@@ -79,10 +79,12 @@ if agent_auth['password']
   args << ' -P ' + agent_auth['password']
 end
 
+## disabled for client v4.x - removed check for client.keys empty as it prevents registration with hostname
 execute "#{dir}/bin/agent-auth #{args}" do
   timeout 30
   ignore_failure node['ossec']['ignore_failure']
-  only_if { agent_auth['host'] && !File.size?("#{dir}/etc/client.keys") }
+  #only_if { agent_auth['host'] && !File.size?("#{dir}/etc/client.keys") }
+  only_if { agent_auth['host'] }
 end
 
 include_recipe 'wazuh_agent::common'
