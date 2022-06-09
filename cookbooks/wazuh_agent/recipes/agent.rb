@@ -92,15 +92,15 @@ include_recipe 'wazuh_agent::common'
 template "#{node['ossec']['dir']}/etc/local_internal_options.conf" do
   source 'var/ossec/etc/agent_local_internal_options.conf'
   owner 'root'
-  group 'ossec'
+  group 'wazuh'
   action :create
 end
 
 file 'set client.keys permissions' do
   path "#{dir}/etc/client.keys"
   mode  '0640'
-  owner 'ossec'
-  group 'ossec'
+  owner 'wazuh'
+  group 'wazuh'
   only_if {
     ::File.exist?("#{dir}/etc/client.keys")
   }
